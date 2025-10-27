@@ -1,0 +1,41 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*.so
+
+# Environment folders
+env/
+venv/
+.conda/
+.venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Jupyter lab / notebook config
+.jupyter/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Pip / Conda packages
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Temporary files
+*.log
+*.tmp
+*.swp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Docker
+*.tar
+
