@@ -1,0 +1,13 @@
+services:
+  jupyter:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+
+    # Mount repo to local dir 
+    volumes:
+      - .:/usr/jovyan/bipartition_covers
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
