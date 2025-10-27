@@ -1,14 +1,14 @@
-# Use the official Jupyter Data Science Notebook image with pinned Python version
-FROM jupyter/datascience-notebook:python-3.12.1
+#Use the official Jupyter Data Science Notebook image with pinned Python version
+FROM jupyter/datascience-notebook:latest
 
 # Set working directory inside container
 WORKDIR /usr/jovyan/bipartition_covers
+ENV WORKDIR=/usr/jovyan/bipartition_covers
 
 # Copy requirements and install dependencies
-COPY conda_environment.yml ./ 
 USER root
-RUN mamba env update -n base -f conda_environment.yml && \
-    mambda clean --all -f -y
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
    
 # Switch to non-root user (recommended by Jupyter)
 USER jovyan
@@ -21,4 +21,4 @@ COPY README.md README.md
 EXPOSE 8888
 
 # Start JupyterLab without token/password (local reproducibility)
-CMD ["start-notebook.sh", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["start-notebook.py", "--ServerApp.token=''", "--ServerApp.password=''"]
