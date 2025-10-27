@@ -5,16 +5,17 @@ FROM jupyter/datascience-notebook:python-3.12.1
 WORKDIR /usr/jovyan/bipartition_covers
 
 # Copy requirements and install dependencies
-COPY requirements.txt ./
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+COPY conda_environment.yml ./ 
+USER root
+RUN mamba env update -n base -f conda_environment.yml && \
+    mambda clean --all -f -y
+   
+# Switch to non-root user (recommended by Jupyter)
+USER jovyan
 
 # Copy notebooks folder
 COPY notebooks/ notebooks/
 COPY README.md README.md
-
-# Switch to non-root user (recommended by Jupyter)
-USER jovyan
 
 # Expose Jupyter port
 EXPOSE 8888
