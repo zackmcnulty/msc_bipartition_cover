@@ -6,7 +6,8 @@ It uses a **Docker-based JupyterLab environment** for reproducibility, although 
 
 ## Prerequisites
 
-If you would like to 
+If you would like to use Docker, you can install it following locations if you do not have it already.
+
 1. Install [Docker](https://www.docker.com/get-started) for your platform.
 2. Install [Docker Compose](https://docs.docker.com/compose/install/).
 
@@ -14,7 +15,7 @@ If you would like to
 
 Then you can either directly download the Docker image [HERE](todo) or follow the below steps to build a local copy. 
 
-## Clone the Repository
+## Building Docker Image Locally
 
 First, we need to download the repository from GitHub. 
 
@@ -23,16 +24,15 @@ git clone https://github.com/zackmcnulty/msc_bipartition_cover.git
 cd msc_bipartition_cover
 ```
 
-## Starting the Container
-
-Now we start the container and get the jupyterlab running. 
+Now we can build local Docker image. 
 
 ```bash
 docker-compose up --build
 ```
 
-## Opening Jupyter Lab
+After you build the image, 
 
-This should start a Jupyter server on your local device. Open any web-browser and navigate to the URL `http://localhost:8888/lab` or click [here](http://localhost:8888/lab). 
+This should start a Jupyter server on your local device. Open any web-browser and navigate to the URL `http://localhost:8888/lab` or simply click [here](http://localhost:8888/lab) to navigate to Jupyter lab. 
+
 
 
