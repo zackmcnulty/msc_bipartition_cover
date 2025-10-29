@@ -11,6 +11,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 import bisect
+import itertools
 
 import os
 from pathlib import Path
@@ -20,8 +21,9 @@ base_dir = Path(workdir)
 figures_dir = base_dir / "figures"
 
 from utility.coalescent_probabilities import g_ij
-from utility.msc_sampling import get_empirical_coverage_probs
+from utility.msc_sampling import get_empirical_coverage_probs, sample_gene_trees_until_cover
 from utility.bounds import original_bound, caterpillar_bound, one_step_bound, balanced_bound
+from utility.build_tree_topologies import create_yule_tree
 
 ########################################################################################################
     # Plotting g_ij
@@ -635,4 +637,64 @@ def make_all_overestimation_plots(species_tree_generator, tree_name, k_vals, T_v
                                        log_plot=True, 
                                        figsize=(15, 5), savepath=savepath,
                                        bound_name=name, tree_name=tree_name)
-    
+
+
+
+def plot_overestimation_distribution(T_vals, k_vals, q, all_bounds, bound_names, num_trees=100, num_samples=100, max_genes=1000, birth_rate=1):
+
+    '''
+        Plot overestimation distribution for Yule Trees
+    '''
+
+    overestimation_ratios = []
+
+    # Repeatedly estimate overestimation ratios
+    for T_min, k in itertools.product(T_vals, k_vals):
+        for _ in range(num_trees):
+            
+            # generate new species tree
+            species_tree = create_yule_tree(k, T_min, birth_rate=birth_rate)
+        
+            # Collect empirical data
+            empirical_counts = sample_gene_trees_until_cover(species_tree, max_genes=max_genes, num_samples=num_samples)
+            empirical_bound = np.quantile(empirical_counts, q)
+
+            for bound, name in zip(all_bounds, bound_names):
+                theoretical_bound = bound(k, T_min, q)
+                ratio = theoretical_bound / (1.0 * empirical_bound)
+                overestimation_ratios.append({
+                    "k": k,
+                    "T_min": T_min,
+                    "bound_name": name,
+                    "theoretical": theoretical_bound,
+                    "empirical":empirical_bound,
+                    "overestimation_ratio": ratio
+                })
+
+    overestimation_ratios = pd.DataFrame(overestimation_ratios)
+
+    # Plot overestimation distributions
+    with sns.color_palette('pastel'):
+        g = sns.catplot(data=overestimation_ratios, kind='boxen',
+                    x='bound_name',
+                    y='overestimation_ratio', 
+                    col='k', 
+                    row='T_min',
+                    hue='bound_name',
+                    k_depth=4,
+                    legend=False,
+                    sharey='row',
+                    sharex=False)
+        
+        g.set(yscale='log')
+        g.set_axis_labels("Bound Type", "Overestimation Ratio")
+        g.fig.suptitle("Overestimation Ratio Distributions for Yule Trees by Bound Type", y=1.02, fontsize=16)
+        g.set_titles("T_min = {row_name} and k = {col_name}")
+        plt.tight_layout()
+
+        # Save figure
+        savepath = figures_dir / 'overestimation_ratios' / 'yule_trees_overestimation'
+        plt.savefig(savepath, bbox_inches='tight')
+        print(f'Saving figure to {savepath}')
+
+    return overestimation_ratios
