@@ -1,7 +1,7 @@
-# Bipartition Covers - Reproducible JupyterLab Environment
+# Bipartition Covers in the Multispecies Coalescent Model
 
 This repository contains notebooks and code for simulating and analyzing bipartition covers.  
-It uses a **Docker-based JupyterLab environment** for reproducibility. The base image includes the standard Python data science stack, and a few additional packages:
+It uses a **Docker-based JupyterLab environment** for reproducibility. The base image `upyter/datascience-notebook` includes the standard Python data science stack, and a few additional packages:
 
 - `dendropy`
 - `tqdm`
@@ -36,3 +36,4 @@ docker-compose up --build
 ## Opening Jupyter Lab
 
 This should start a Jupyter server on your local device. Open any web-browser and navigate to the URL `http://localhost:8888/lab` or click [here](http://localhost:8888/lab). 
+
