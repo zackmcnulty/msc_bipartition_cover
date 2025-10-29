@@ -1,20 +1,18 @@
 # Bipartition Covers in the Multispecies Coalescent Model
 
-This repository contains notebooks and code for simulating and analyzing bipartition covers.  
-It uses a **Docker-based JupyterLab environment** for reproducibility. The base image `upyter/datascience-notebook` includes the standard Python data science stack, and a few additional packages:
+This repository contains jupyter notebooks and code for reproducing figures in the paper [PAPER NAME](link). It focuses on exploring various upperbounds the paper develops on the number of gene trees required to achieve a bipartion cover of the species with high probability, comparing them to empirically estimated quantities under a variety of different species tree topologies. 
 
-- `dendropy`
-- `tqdm`
-- `numba`
-
-You can of course simply clone the repository and run the code on your local kernel if you prefer. 
+It uses a **Docker-based JupyterLab environment** for reproducibility, although you can of course simply clone the repository and run the code on your local kernel if you prefer. The former uses the base Docker image `jupyter/datascience-notebook` which includes the standard Python data science stack, and a few additional packages described in `requirements.txt`. Most notably, it uses `dendropy` for simulating gene trees under the multispecies coalescent model
 
 ## Prerequisites
 
+If you would like to 
 1. Install [Docker](https://www.docker.com/get-started) for your platform.
 2. Install [Docker Compose](https://docs.docker.com/compose/install/).
 
 ---
+
+Then you can either directly download the Docker image [HERE](todo) or follow the below steps to build a local copy. 
 
 ## Clone the Repository
 
@@ -36,4 +34,5 @@ docker-compose up --build
 ## Opening Jupyter Lab
 
 This should start a Jupyter server on your local device. Open any web-browser and navigate to the URL `http://localhost:8888/lab` or click [here](http://localhost:8888/lab). 
+
 
