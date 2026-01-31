@@ -30,9 +30,8 @@ Now we can build local Docker image.
 docker-compose up --build
 ```
 
-After you build the image, 
-
 This should start a Jupyter server on your local device. Open any web-browser and navigate to the URL `http://localhost:8888/lab` or simply click [here](http://localhost:8888/lab) to navigate to Jupyter lab. 
+
 
 
 
