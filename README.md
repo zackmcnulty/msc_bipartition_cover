@@ -32,6 +32,9 @@ docker-compose up --build
 
 This should start a Jupyter server on your local device. Open any web-browser and navigate to the URL `http://localhost:8888/lab` or simply click [here](http://localhost:8888/lab) to navigate to Jupyter lab. 
 
+All the code for generating the relevant plots can be found in the notebook `notebooks/bipartitions_paper.ipynb`. Helper functions and their implementation details can be found in the `utility` folder.
+
+
 
 
 
